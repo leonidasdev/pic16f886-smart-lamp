@@ -196,13 +196,13 @@ SMA-LAMP/
 │
 └── test/                  # Individual component tests
     ├── README.md         # Testing documentation and procedures
-    ├── test_ventilador.c # Fan PWM ramp test
+    ├── test_fan.c        # Fan PWM ramp test
     ├── test_led.c        # LED color cycling test
     ├── test_command.c    # UART command reception test
     ├── test_co2.c        # CO₂ sensor I2C test
-    ├── test_luminosidad.c # Light sensor I2C test
-    ├── test_temperatura.c # Temperature sensor ADC test
-    ├── test_ruido.c      # Noise sensor ADC test
+    ├── test_lux.c        # Light sensor I2C test
+    ├── test_temperature.c # Temperature sensor ADC test
+    ├── test_noise.c      # Noise sensor ADC test
     ├── test_humidity.c   # Humidity sensor ADC test
     └── test_eeprom.c     # EEPROM read/write test
 ```
@@ -425,13 +425,13 @@ The project includes 9 standalone test programs in the `test/` folder:
 
 | Test | Purpose | Hardware Required |
 |------|---------|-------------------|
-| **test_ventilador** | PWM fan ramp (0→80%→0%) | Fan on RC2 |
+| **test_fan** | PWM fan ramp (0→80%→0%) | Fan on RC2 |
 | **test_led** | LED color cycling | SK9822 on RC0/RC1 |
 | **test_command** | UART command reception | UART terminal |
-| **test_temperatura** | Temperature reading | LM35 on RA0 |
+| **test_temperature** | Temperature reading | LM35 on RA0 |
 | **test_humidity** | Humidity reading | HIH4000 on RA1 |
-| **test_ruido** | Noise level sampling | Microphone on RA2 |
-| **test_luminosidad** | Light sensor I2C | VEML7700 on I2C |
+| **test_noise** | Noise level sampling | Microphone on RA2 |
+| **test_lux** | Light sensor I2C | VEML7700 on I2C |
 | **test_co2** | CO₂ sensor I2C | iAQ-Core on I2C |
 | **test_eeprom** | EEPROM read/write | None (internal) |
 
