@@ -10,13 +10,13 @@
 
 | Test | Target Component | Hardware | Output | Duration |
 |------|------------------|----------|--------|----------|
-| **test_ventilador** | PWM fan control | Fan + CCP1 | Visual (speed ramp) | Continuous |
+| **test_fan** | PWM fan control | Fan + CCP1 | Visual (speed ramp) | Continuous |
 | **test_led** | SK9822 LED strip | 10 LEDs + SPI | Visual (color cycle) | Continuous |
 | **test_command** | UART protocol | UART + Fan + LED | Response to commands | Continuous |
 | **test_co2** | iAQ-Core CO2 | I2C sensor + UART | UART (ppm every 1s) | Continuous |
-| **test_luminosidad** | VEML7700 lux | I2C sensor + UART | UART (lux every 500ms) | Continuous |
-| **test_temperatura** | LM35 temperature | ADC + UART | UART (°C every 500ms) | Continuous |
-| **test_ruido** | Microphone noise | ADC + UART | UART (level every 500ms) | Continuous |
+| **test_lux** | VEML7700 lux | I2C sensor + UART | UART (lux every 500ms) | Continuous |
+| **test_temperature** | LM35 temperature | ADC + UART | UART (°C every 500ms) | Continuous |
+| **test_noise** | Microphone noise | ADC + UART | UART (level every 500ms) | Continuous |
 | **test_humidity** | HIH-4000 humidity | ADC + UART | UART (% every 1s) | Continuous |
 | **test_eeprom** | Internal EEPROM | None | UART (read/write test) | Single-shot |
 
@@ -43,7 +43,7 @@
 
 ---
 
-## Test 1: test_ventilador - Fan PWM Control
+## Test 1: test_fan - Fan PWM Control
 
 ### Purpose
 Validates PWM generation and fan control using automatic speed ramping (0% to 80% and back).
@@ -186,11 +186,11 @@ Validates UART protocol parser and actuator control via received commands (fan a
 ### Hardware Requirements
 - **UART**: RC6 (TX), RC7 (RX) at 9600 baud
 - **USB-UART**: CH340, FTDI, CP2102, or similar
-- **Fan**: Same as test_ventilador
+- **Fan**: Same as test_fan
 - **LEDs**: Same as test_led
 
 ### Wiring
-- See test_ventilador for fan circuit
+- See test_fan for fan circuit
 - See test_led for LED strip
 - UART: RC6 → USB-UART RX, RC7 → USB-UART TX, GND common
 
@@ -258,7 +258,7 @@ HEADER → LENGTH → COMMAND → DATA → CRC_LO → CRC_HI
 | No response | Wrong baudrate | Verify both at 9600 baud |
 | Commands ignored | CRC error | Check CRC-8-CCITT implementation |
 | Partial response | Frame timeout | Send complete frame quickly |
-| Fan/LED not working | Hardware issue | Test with test_ventilador/test_led first |
+| Fan/LED not working | Hardware issue | Test with test_fan/test_led first |
 | Garbled data | Electrical noise | Shorter USB cable, ferrite beads |
 
 ### Key Code Sections
@@ -366,7 +366,7 @@ if (co2_ppm == 65535) {
 
 ---
 
-## Test 5: test_luminosidad - VEML7700 Light Sensor
+## Test 5: test_lux - VEML7700 Light Sensor
 
 ### Purpose
 Validates I2C light sensor and lux conversion.
@@ -419,7 +419,7 @@ printf("Lux: %u\n", lux);
 
 ---
 
-## Test 6: test_temperatura - LM35 Temperature Sensor
+## Test 6: test_temperature - LM35 Temperature Sensor
 
 ### Purpose
 Validates ADC configuration and analog temperature measurement.
@@ -487,7 +487,7 @@ uint8_t temp = temp_read_degC();    // Convert to °C
 
 ---
 
-## Test 7: test_ruido - Microphone Noise Level
+## Test 7: test_noise - Microphone Noise Level
 
 ### Purpose
 Validates ADC noise categorization (LOW/MEDIUM/HIGH).
@@ -724,12 +724,12 @@ XC8 Global Options → Optimizations → Level 1
 **Recommended Test Order**:
 
 1. **test_eeprom**: No external hardware, validates basic system
-2. **test_temperatura**: Simple ADC test
+2. **test_temperature**: Simple ADC test
 3. **test_humidity**: ADC with formula validation
-4. **test_ruido**: ADC with classification
-5. **test_luminosidad**: I2C communication basics
+4. **test_noise**: ADC with classification
+5. **test_lux**: I2C communication basics
 6. **test_co2**: I2C with warmup logic
-7. **test_ventilador**: PWM output validation
+7. **test_fan**: PWM output validation
 8. **test_led**: SPI bit-bang protocol
 9. **test_command**: Full protocol integration
 
@@ -802,13 +802,13 @@ Conclusion: [PASS/FAIL with summary]
 
 | Test | Flash Usage | RAM Usage | CPU Load | Test Duration |
 |------|-------------|-----------|----------|---------------|
-| test_ventilador | ~1.2 KB | 12 bytes | 2% | Continuous |
+| test_fan | ~1.2 KB | 12 bytes | 2% | Continuous |
 | test_led | ~1.5 KB | 45 bytes | 8% | Continuous |
 | test_command | ~2.8 KB | 62 bytes | 15% | Continuous |
 | test_co2 | ~2.1 KB | 28 bytes | 5% | Continuous |
-| test_luminosidad | ~1.8 KB | 22 bytes | 4% | Continuous |
-| test_temperatura | ~1.6 KB | 18 bytes | 3% | Continuous |
-| test_ruido | ~1.6 KB | 18 bytes | 3% | Continuous |
+| test_lux | ~1.8 KB | 22 bytes | 4% | Continuous |
+| test_temperature | ~1.6 KB | 18 bytes | 3% | Continuous |
+| test_noise | ~1.6 KB | 18 bytes | 3% | Continuous |
 | test_humidity | ~1.7 KB | 20 bytes | 3% | Continuous |
 | test_eeprom | ~1.3 KB | 24 bytes | <1% | Single-shot |
 
