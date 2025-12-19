@@ -1,7 +1,7 @@
 # SMA-LAMP (LMDE-MA) - Firmware Documentation
 
 **Microcontroller:** PIC16F886 @ 20 MHz  
-**Project:** Smart Monitoring & Actuation - Lighting And Measurement Platform  
+**Project:** Sistema de Monitorización & Actuación -  Lámpara de Mesa Diseñada para el Estudio
 **Version:** 1.0  
 **Date:** December 2025  
 **Language:** C (XC8 Compiler)  
@@ -9,7 +9,7 @@
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
 1. [System Overview](#system-overview)
 2. [Hardware Architecture](#hardware-architecture)
