@@ -739,5 +739,11 @@ This project is licensed under the MIT License. See the [LICENSE](./LICENSE) fil
 
 ---
 
-**End of README**
+## Support
 
+For issues, questions, or contributions, please open an issue on the [GitHub repository](https://github.com/leonidasdev/pic16f886-smart-lamp).
+
+---
+
+**Version**: 0.1.0  
+**Last Updated**: December 2025
