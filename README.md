@@ -735,8 +735,9 @@ This is an academic project. If you're working on modifications:
 
 ## License
 
-This project is developed for educational purposes at Universidad Politécnica de Madrid.
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
 
 ---
 
 **End of README**
+
